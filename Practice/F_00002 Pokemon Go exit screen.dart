@@ -14,36 +14,88 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(20),
-        height: 200,
-        width: 400,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            new BoxShadow(
-              color: Colors.white,
-            ),
-          ],
+          gradient: LinearGradient(
+            colors: <Color>[Colors.green[300], Colors.cyanAccent[400]],
+          ),
         ),
-        child: Column(
-          children: <Widget>[
-            Text('Do you want to exit Pokemon Go?'),
-            RaisedButton(
-              child: Text('OK'),
-              onPressed: null,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.cyan)),
-                  color: Colors.cyan,
-            ),
-            FlatButton(
-              child: Text('Cancel'),
-              onPressed: null,
-            ),
-          ],
+        alignment: Alignment(0.0, 0.0),
+        child: Container(
+          alignment: Alignment(0.0, 0.0),
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.all(10),
+          height: 210,
+          width: 350,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: [
+              new BoxShadow(
+                color: Colors.white,
+              ),
+            ],
+          ),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20),
+              Text('Do you want to exit Pokemon Go?'),
+              SizedBox(height: 30),
+              RaisedGradientButton(
+                  child: Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  gradient: LinearGradient(
+                    colors: <Color>[Colors.green[300], Colors.cyanAccent[400]],
+                  ),
+                  onPressed: () {
+                    print('button clicked');
+                  }),
+              SizedBox(height: 30),
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: null,
+                color: Colors.green[500],
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class RaisedGradientButton extends StatelessWidget {
+  final Widget child;
+  final Gradient gradient;
+  final double width;
+  final double height;
+  final Function onPressed;
+
+  const RaisedGradientButton({
+    Key key,
+    @required this.child,
+    this.gradient,
+    this.width = 250.0,
+    this.height = 50.0,
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        gradient: gradient,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+            onTap: onPressed,
+            child: Center(
+              child: child,
+            )),
       ),
     );
   }
